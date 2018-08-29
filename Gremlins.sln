@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gremlins", ".\Gremlins\Gremlins.csproj", "{65765A71-994D-4FC7-9824-37B638E86836}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gremlins.Demo", ".\Gremlins.Demo\Gremlins.Demo.csproj", "{6D1FFB58-6F36-4848-BC05-729B74764ADB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65765A71-994D-4FC7-9824-37B638E86836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65765A71-994D-4FC7-9824-37B638E86836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65765A71-994D-4FC7-9824-37B638E86836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65765A71-994D-4FC7-9824-37B638E86836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1FFB58-6F36-4848-BC05-729B74764ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1FFB58-6F36-4848-BC05-729B74764ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1FFB58-6F36-4848-BC05-729B74764ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1FFB58-6F36-4848-BC05-729B74764ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EC6A12F-8308-45DE-B172-7E67AF0F027B}
+	EndGlobalSection
+EndGlobal
