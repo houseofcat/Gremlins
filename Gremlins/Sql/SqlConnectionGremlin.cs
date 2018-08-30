@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,9 +63,8 @@ namespace Gremlins.Sql
         }
 
         /// <summary>
-        /// Closes a SqlConnection that is open in memory, in order.
+        /// Closes a SqlConnection that is open in memory, in the order they were opened.
         /// </summary>
-        /// <returns></returns>
         public Task CloseOpenConnectionAsync()
         {
             lock (_syncRoot)
@@ -75,7 +75,9 @@ namespace Gremlins.Sql
                     {
                         if (Connections.TryGetValue(_currentConnectionIdToRemove, out SqlConnection conn))
                         {
-                            conn.Close();
+                            try { conn.Close(); }
+                            catch { }
+
                             conn.Dispose();
 
                             Interlocked.Increment(ref _currentConnectionIdToRemove);
@@ -88,16 +90,32 @@ namespace Gremlins.Sql
         }
 
         /// <summary>
-        /// Closes SqlConnections that are open in memory, in order.
+        /// Closes SqlConnections that are open in memory, in the order they were open.
         /// </summary>
         /// <param name="connectionsToClose"></param>
-        /// <returns></returns>
         public async Task CloseOpenConnectionsAsync(int connectionsToClose)
         {
             for (int i = 0; i < connectionsToClose; i++)
             {
                 await CloseOpenConnectionAsync();
             }
+        }
+
+        /// <summary>
+        /// Gets the current number of stored SqlConnections that are open.
+        /// </summary>
+        /// <returns>Current number of stored connections whose ConnectionState is Open.</returns>
+        public Task<long> GetOpenConnectionsCountAsync()
+        {
+            var openCount = 0L;
+
+            foreach(var kvp in Connections)
+            {
+                if (kvp.Value.State == ConnectionState.Open)
+                { openCount++; }
+            }
+
+            return Task.FromResult(openCount);
         }
 
         #region Helpers

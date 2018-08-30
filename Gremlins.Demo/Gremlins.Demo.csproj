@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Examples\03_CpuExamples.cs" />
     <Compile Include="Examples\02_SqlConnectionGremlinExamples.cs" />
     <Compile Include="Examples\01_SqlMonitoringExamples.cs" />
     <Compile Include="Models\GlobalVariables.cs" />
