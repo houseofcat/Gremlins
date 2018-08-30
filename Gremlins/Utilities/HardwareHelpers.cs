@@ -74,7 +74,7 @@ namespace Gremlins.Utilities
         }
 
         /// <summary>
-        /// Used for calculating ThreadAffinity. Necessary for assigning a Core to a CPU.
+        /// Used for calculating ThreadAffinity. Necessary for assigning a thread to a Core/LP of a CPU.
         /// </summary>
         /// <param name="currentCpu"></param>
         /// <param name="currentCore"></param>
