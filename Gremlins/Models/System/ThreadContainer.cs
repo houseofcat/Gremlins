@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using static Gremlins.Utilities.Enums;
 
 namespace Gremlins.Models.System
@@ -20,12 +22,12 @@ namespace Gremlins.Models.System
         public int CpuNumber { get; set; } = 0;
 
         /// <summary>
-        /// The physical Core/Logical Processor this Thread is assigned to.
+        /// The physical Core/Logical Processor this Thread is to be assigned to.
         /// </summary>
         public int CpuCoreNumber { get; set; } = 0;
 
         /// <summary>
-        /// The physical Core/Logical Processor this Thread is assigned to.
+        /// The physical Core/Logical Processor this Thread is to be assigned to.
         /// </summary>
         public int CpuLogicalProcessorNumber { get; set; } = 0;
 
@@ -40,8 +42,42 @@ namespace Gremlins.Models.System
         public int LogicalProcessorsPerCpu { get; set; } = 0;
 
         /// <summary>
+        /// Allows the thread to see when it needs to stop doing work.
+        /// </summary>
+        public bool TerminateSelf { get; set; } = false;
+
+        /// <summary>
+        /// Tells calling methods to use waits and by how much (ms).
+        /// </summary>
+        public int ThrottleTime { get; set; } = 0;
+
+        /// <summary>
         /// The ThreadStatus helps quickly identify what work state is for the Thread stored here.
         /// </summary>
         public ThreadStatus ThreadStatus { get; set; } = ThreadStatus.NoThread;
+
+        private Func<object, Task> _asyncFuncWork;
+
+        /// <summary>
+        /// Allows for custom workloads to be assigned to Threads.
+        /// </summary>
+        public Func<object, Task> AsyncFuncWork
+        {
+            get { return _asyncFuncWork; }
+            set
+            {
+                if (Monitor.TryEnter(FuncLock, TimeSpan.FromMilliseconds(100)))
+                {
+                    _asyncFuncWork = value;
+
+                    Monitor.Exit(FuncLock);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Used for preventing AsyncFuncWork being accessed while in use.
+        /// </summary>
+        public object FuncLock = new object();
     }
 }

@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using static Gremlins.Utilities.Enums;
-using static Gremlins.Utilities.HardwareHelpers;
+using static Gremlins.Utilities.ApplicationHelpers;
 
 namespace Gremlins.System
 {
@@ -13,16 +13,16 @@ namespace Gremlins.System
     /// This Gremlin is used to create heavy CPU usage. Useful for hardening applications that might suffer errors
     /// when the CPU is taxed.
     /// </summary>
-    public class CpuGremlin
+    public class CpuUsageGremlin
     {
         private static int _cpuCount => GlobalVariables.System.CpuCount;
         private static int _coresPerCpu => GlobalVariables.System.CoresPerCpu;
         private static int _logicalProcessorsPerCpu => GlobalVariables.System.LogicalProcessorsPerCpu;
 
         /// <summary>
-        /// Array containing all the threads and thread information for record keeping.
+        /// Array containing all the threads to be assigned to a Cpue Core and thread information for record keeping.
         /// </summary>
-        public static ThreadContainer[] ThreadContainers = null;
+        public static ThreadContainer[] CpuCoreThreadContainers = null;
 
         /// <summary>
         /// A class to hold variables that can be used through the library.
@@ -35,16 +35,16 @@ namespace Gremlins.System
         /// <param name="threadPriority"></param>
         public async Task UseAllCpuCoresAsync(ThreadPriority threadPriority = ThreadPriority.Lowest)
         {
-            ThreadContainers = new ThreadContainer[_cpuCount * Math.Max(_coresPerCpu, _logicalProcessorsPerCpu)];
-            await CreateThreadContainers(threadPriority);
-            await StartThreads();
+            CpuCoreThreadContainers = new ThreadContainer[_cpuCount * Math.Max(_coresPerCpu, _logicalProcessorsPerCpu)];
+            await CreateCpuCoreThreadContainers(threadPriority);
+            await StartCpuCoreThreads();
         }
 
         /// <summary>
         /// Creates a Thread per CPU core/logical processor.
         /// </summary>
         /// <param name="threadPriority"></param>
-        public Task CreateThreadContainers(ThreadPriority threadPriority = ThreadPriority.Lowest)
+        public Task CreateCpuCoreThreadContainers(ThreadPriority threadPriority = ThreadPriority.Lowest)
         {
             var index = 0;
             for (int currentCpu = 0; currentCpu < _cpuCount; currentCpu++)
@@ -64,8 +64,9 @@ namespace Gremlins.System
 
                     threadContainer.Thread.Name = $"CpuGremlin #{currentCpu}-{currentCore}";
                     threadContainer.Thread.Priority = threadPriority;
+                    threadContainer.Thread.IsBackground = true;
 
-                    ThreadContainers[index] = threadContainer;
+                    CpuCoreThreadContainers[index] = threadContainer;
                     index++;
                 }
             }
@@ -74,37 +75,71 @@ namespace Gremlins.System
         }
 
         /// <summary>
-        /// Starts all the threads in the ThreadContainer.
+        /// Starts all the threads in the CpuCoreThreadContainer.
         /// </summary>
         /// <returns></returns>
-        public Task StartThreads()
+        public Task StartCpuCoreThreads()
         {
-            for(int i = 0; i < ThreadContainers.Length; i++)
+            for (int i = 0; i < CpuCoreThreadContainers.Length; i++)
             {
-                ThreadContainers[i].Thread.Start(i);
+                CpuCoreThreadContainers[i].TerminateSelf = false;
+                CpuCoreThreadContainers[i].Thread?.Start(i);
             }
 
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Worker sets the affinity to its assigned CPU Logical processor and then engages the core/logical processor to
-        /// 100% utilization.
+        /// Stops all the threads in the CpuCoreThreadContainer.
+        /// </summary>
+        /// <returns></returns>
+        public Task StopCpuCoreThreads()
+        {
+            for (int i = 0; i < CpuCoreThreadContainers.Length; i++)
+            {
+                CpuCoreThreadContainers[i].TerminateSelf = true;
+                CpuCoreThreadContainers[i].ThreadStatus = ThreadStatus.Idle;
+            }
+
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Worker sets the affinity to its assigned CPU Logical Processor and then engages in work to get 100%
+        /// utilization.
         /// </summary>
         /// <param name="ThreadNumber"></param>
-        public void ThreadWorker(object ThreadNumber)
+        public async void ThreadWorker(object ThreadNumber)
         {
-            var threadContainer = ThreadContainers[(int)ThreadNumber];
-
-            var affinityMask = CalculateCoreAffinity(threadContainer.CpuNumber,
+            var threadContainer = CpuCoreThreadContainers[(int)ThreadNumber];
+            await SetThreadAffinity(NativeMethods.GetCurrentThread(),
+                threadContainer.CpuNumber,
                 threadContainer.CpuCoreNumber,
                 threadContainer.LogicalProcessorsPerCpu);
 
-            NativeMethods.SetThreadAffinityMask(NativeMethods.GetCurrentThread(), new IntPtr(affinityMask));
-
             threadContainer.ThreadStatus = ThreadStatus.Processing;
 
-            while(true) { }
+            if (Monitor.TryEnter(threadContainer.FuncLock))
+            {
+                while (!threadContainer.TerminateSelf)
+                {
+                    if (threadContainer.ThrottleTime > 0)
+                    {
+                        await AsyncWork(threadContainer.ThrottleTime);
+                    }
+                    else if (threadContainer.AsyncFuncWork != default)
+                    {
+                        await threadContainer.AsyncFuncWork(ThreadNumber);
+                    }
+                }
+
+                Monitor.Exit(threadContainer.FuncLock);
+            }
         }
+
+        private async Task AsyncWork(int throttleTime)
+        {
+            await Task.Delay(throttleTime);
+        }       
     }
 }

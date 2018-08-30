@@ -7,9 +7,9 @@ namespace Gremlins.Demo.Examples
     {
         public static async Task UseAllCpuCoresAsync()
         {
-            CpuGremlin cpuGremlin = new CpuGremlin();
+            CpuUsageGremlin cpuUsageGremlin = new CpuUsageGremlin();
 
-            await cpuGremlin.UseAllCpuCoresAsync();
+            await cpuUsageGremlin.UseAllCpuCoresAsync();
         }
     }
 }
