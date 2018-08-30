@@ -114,7 +114,7 @@ namespace Gremlins.System
             var threadContainer = CpuCoreThreadContainers[(int)ThreadNumber];
             await SetThreadAffinity(NativeMethods.GetCurrentThread(),
                 threadContainer.CpuNumber,
-                threadContainer.CpuCoreNumber,
+                threadContainer.CpuLogicalProcessorNumber,
                 threadContainer.LogicalProcessorsPerCpu);
 
             threadContainer.ThreadStatus = ThreadStatus.Processing;
