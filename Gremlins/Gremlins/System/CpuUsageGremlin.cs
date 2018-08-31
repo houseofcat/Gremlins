@@ -2,6 +2,7 @@
 using Gremlins.Models.System;
 using Gremlins.Utilities;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using static Gremlins.Utilities.ApplicationHelpers;
@@ -13,7 +14,7 @@ namespace Gremlins.System
     /// This Gremlin is used to create heavy CPU usage. Useful for hardening applications that might suffer errors
     /// when the CPU is taxed.
     /// </summary>
-    public class CpuUsageGremlin
+    public class CpuUsageGremlin : IDisposable
     {
         #region Private Variables
 
@@ -44,15 +45,15 @@ namespace Gremlins.System
         public async Task UseAllCpuCoresAsync(ThreadPriority threadPriority = ThreadPriority.Lowest)
         {
             CpuCoreThreadContainers = new ThreadContainer[_cpuCount * Math.Max(_coresPerCpu, _logicalProcessorsPerCpu)];
-            await CreateCpuCoreThreadContainers(threadPriority);
-            await StartCpuCoreThreads();
+            await CreateCpuCoreThreadContainersAsync(threadPriority);
+            await StartCpuCoreThreadsAsync();
         }
 
         /// <summary>
         /// Creates a Thread per CPU core/logical processor.
         /// </summary>
         /// <param name="threadPriority"></param>
-        public Task CreateCpuCoreThreadContainers(ThreadPriority threadPriority = ThreadPriority.Lowest)
+        public Task CreateCpuCoreThreadContainersAsync(ThreadPriority threadPriority = ThreadPriority.Lowest)
         {
             var index = 0;
             for (int currentCpu = 0; currentCpu < _cpuCount; currentCpu++)
@@ -85,7 +86,7 @@ namespace Gremlins.System
         /// <summary>
         /// Starts all the threads in the CpuCoreThreadContainer.
         /// </summary>
-        public Task StartCpuCoreThreads()
+        public Task StartCpuCoreThreadsAsync()
         {
             for (int i = 0; i < CpuCoreThreadContainers.Length; i++)
             {
@@ -100,7 +101,7 @@ namespace Gremlins.System
         /// <summary>
         /// Stops all the threads in the CpuCoreThreadContainer.
         /// </summary>
-        public Task StopCpuCoreThreads()
+        public Task StopCpuCoreThreadsAsync()
         {
             for (int i = 0; i < CpuCoreThreadContainers.Length; i++)
             {
@@ -138,11 +139,50 @@ namespace Gremlins.System
             }
         }
 
+        /// <summary>
+        /// Get the number of active threads used by this Gremlin.
+        /// </summary>
+        /// <returns></returns>
+        public Task<int> GetActiveThreadCountAsync()
+        {
+            var count = CpuCoreThreadContainers.Where(tc => tc.ThreadStatus == ThreadStatus.Processing).Count();
+            return Task.FromResult(count);
+        }
+
+        /// <summary>
+        /// Get the number of threads used by this Gremlin.
+        /// </summary>
+        /// <returns></returns>
+        public Task<int> GetThreadCountAsync()
+        {
+            return Task.FromResult(CpuCoreThreadContainers.Count());
+        }
+
         #region Helpers
 
         private async Task AsyncWork(int throttleTime)
         {
             await Task.Delay(throttleTime);
+        }
+
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         #endregion

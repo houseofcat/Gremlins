@@ -9,7 +9,7 @@ namespace Gremlins.Monitoring
     /// <summary>
     /// Class the wraps around accessing PerformanceCounters for SqlConnection.
     /// </summary>
-    public class SqlMonitoring
+    public class SqlMonitoring : IDisposable
     {
         /// <summary>
         /// The storage location of the Ado.Net Performance Counters.
@@ -209,6 +209,36 @@ namespace Gremlins.Monitoring
 
             await Console.Out.WriteLineAsync(stats);
         }
+
+        private bool disposedValue = false;
+
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    foreach(var item in AdoPerformanceCounters)
+                    { item.Dispose(); }
+
+                    // Recreates the objects original state.
+                    var perfCounterNames = Enum.GetNames(typeof(ANPC));
+                    AdoPerformanceCounters = new PerformanceCounter[perfCounterNames.Length];
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        public void Dispose()
+        { Dispose(true); }
 
         #endregion
     }
