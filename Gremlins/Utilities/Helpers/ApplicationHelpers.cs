@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Gremlins.Utilities
+namespace Gremlins.Utilities.Helpers
 {
     /// <summary>
     /// Class for doing miscellaneous application and system calls.

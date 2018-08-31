@@ -1,10 +1,8 @@
 ﻿using Gremlins.Models.System;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Enums;
 
-namespace Gremlins.Utilities
+namespace Gremlins.Utilities.Helpers
 {
     /// <summary>
     /// Class for help with dealing with Threads.

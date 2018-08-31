@@ -1,4 +1,4 @@
-﻿using static Gremlins.Utilities.HardwareHelpers;
+﻿using static Gremlins.Utilities.Helpers.HardwareHelpers;
 
 namespace Gremlins.Models.System
 {

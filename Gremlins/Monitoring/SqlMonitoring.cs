@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.ApplicationHelpers;
+using static Gremlins.Utilities.Helpers.ApplicationHelpers;
 using ANPC = Gremlins.Utilities.Enums.AdoNetPerformanceCounters;
 
 namespace Gremlins.Monitoring

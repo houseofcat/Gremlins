@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using static Gremlins.Utilities.Enums;
-using static Gremlins.Utilities.ThreadHelpers;
+using static Gremlins.Utilities.Helpers.ThreadHelpers;
 
 namespace Gremlins.System
 {

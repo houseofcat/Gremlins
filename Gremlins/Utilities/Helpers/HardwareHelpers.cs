@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Management;
 
-namespace Gremlins.Utilities
+namespace Gremlins.Utilities.Helpers
 {
     /// <summary>
     /// Class that has methods that interact with Windows to get Hardware information.
     /// </summary>
-    public class HardwareHelpers
+    public static class HardwareHelpers
     {
         #region Wmi Strings
 

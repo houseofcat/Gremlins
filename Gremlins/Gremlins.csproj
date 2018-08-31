@@ -56,11 +56,11 @@
     <Compile Include="Gremlins\Sql\SqlConnectionGremlin.cs" />
     <Compile Include="Gremlins\System\CpuUsageGremlin.cs" />
     <Compile Include="Gremlins\System\MemoryUsageGremlin.cs" />
-    <Compile Include="Utilities\ApplicationHelpers.cs" />
+    <Compile Include="Utilities\Helpers\ApplicationHelpers.cs" />
     <Compile Include="Utilities\Enums.cs" />
-    <Compile Include="Utilities\HardwareHelpers.cs" />
+    <Compile Include="Utilities\Helpers\HardwareHelpers.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
-    <Compile Include="Utilities\ThreadHelpers.cs" />
+    <Compile Include="Utilities\Helpers\ThreadHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
