@@ -9,25 +9,23 @@ namespace Gremlins.Demo.Examples
     {
         public static async Task UseAllCpuCoresAsync()
         {
-            CpuUsageGremlin cpuUsageGremlin = new CpuUsageGremlin();
-
-            await Console.Out.WriteLineAsync("\nCpu Usage Gremlin Example Beings!");
-
-            await cpuUsageGremlin.UseAllCpuCoresAsync();
-
-            for(int i = 0; i < 10; i++)
+            using (var cpuUsageGremlin = new CpuUsageGremlin())
             {
+                await Console.Out.WriteLineAsync("\nCpu Usage Gremlin Example Beings!");
+
+                await cpuUsageGremlin.UseAllCpuCoresAsync();
+
+                for (int i = 0; i < 10; i++)
+                { await WriteThreadUsageToConsole(cpuUsageGremlin); }
+
+                await Console.Out.WriteLineAsync("\nStopping gremlin!");
+
+                await cpuUsageGremlin.StopCpuCoreThreadsAsync();
+
                 await WriteThreadUsageToConsole(cpuUsageGremlin);
+
+                await cpuUsageGremlin.ResetGremlinAsync();
             }
-
-            await Console.Out.WriteLineAsync("\nStopping gremlin!");
-
-            await cpuUsageGremlin.StopCpuCoreThreadsAsync();
-
-            await WriteThreadUsageToConsole(cpuUsageGremlin);
-
-            // TODO: Write this an add Disposable.
-            //await cpuUsageGremlin.ResetGremlinAsync();
 
             await Console.Out.WriteLineAsync("\nCpu Usage Gremlin Example Ends!");
         }

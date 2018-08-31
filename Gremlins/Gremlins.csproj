@@ -60,6 +60,7 @@
     <Compile Include="Utilities\Enums.cs" />
     <Compile Include="Utilities\HardwareHelpers.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
+    <Compile Include="Utilities\ThreadHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

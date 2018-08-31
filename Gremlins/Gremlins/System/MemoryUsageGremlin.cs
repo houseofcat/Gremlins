@@ -67,7 +67,7 @@ namespace Gremlins.System
         /// <summary>
         /// Deallocates the first memory location stored by a IntPtr in memory (if it exists).
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Success or failure.</returns>
         public Task<bool> DellocateUnmanagedMemoryAsync()
         {
             var success = false;
@@ -85,7 +85,6 @@ namespace Gremlins.System
         /// <summary>
         /// Clears out all stored managed and unmanaged memory allocations.
         /// </summary>
-        /// <returns></returns>
         public Task ResetGremlinAsync()
         {
             lock (_syncRoot)
