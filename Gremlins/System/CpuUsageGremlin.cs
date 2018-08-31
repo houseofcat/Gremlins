@@ -4,8 +4,8 @@ using Gremlins.Utilities;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Enums;
 using static Gremlins.Utilities.ApplicationHelpers;
+using static Gremlins.Utilities.Enums;
 
 namespace Gremlins.System
 {
@@ -15,9 +15,15 @@ namespace Gremlins.System
     /// </summary>
     public class CpuUsageGremlin
     {
+        #region Private Variables
+
         private static int _cpuCount => GlobalVariables.System.CpuCount;
         private static int _coresPerCpu => GlobalVariables.System.CoresPerCpu;
         private static int _logicalProcessorsPerCpu => GlobalVariables.System.LogicalProcessorsPerCpu;
+
+        #endregion
+
+        #region Public Variables
 
         /// <summary>
         /// Array containing all the threads to be assigned to a Cpue Core and thread information for record keeping.
@@ -28,6 +34,8 @@ namespace Gremlins.System
         /// A class to hold variables that can be used through the library.
         /// </summary>
         public static GlobalVariables GlobalVariables = new GlobalVariables();
+
+        #endregion
 
         /// <summary>
         /// Supports multiple CPUs and around 64 cores.
@@ -77,11 +85,11 @@ namespace Gremlins.System
         /// <summary>
         /// Starts all the threads in the CpuCoreThreadContainer.
         /// </summary>
-        /// <returns></returns>
         public Task StartCpuCoreThreads()
         {
             for (int i = 0; i < CpuCoreThreadContainers.Length; i++)
             {
+                CpuCoreThreadContainers[i].ThreadStatus = ThreadStatus.Processing;
                 CpuCoreThreadContainers[i].TerminateSelf = false;
                 CpuCoreThreadContainers[i].Thread?.Start(i);
             }
@@ -92,7 +100,6 @@ namespace Gremlins.System
         /// <summary>
         /// Stops all the threads in the CpuCoreThreadContainer.
         /// </summary>
-        /// <returns></returns>
         public Task StopCpuCoreThreads()
         {
             for (int i = 0; i < CpuCoreThreadContainers.Length; i++)
@@ -108,38 +115,36 @@ namespace Gremlins.System
         /// Worker sets the affinity to its assigned CPU Logical Processor and then engages in work to get 100%
         /// utilization.
         /// </summary>
-        /// <param name="ThreadNumber"></param>
-        public async void ThreadWorker(object ThreadNumber)
+        /// <param name="threadNumber"></param>
+        public async void ThreadWorker(object threadNumber)
         {
-            var threadContainer = CpuCoreThreadContainers[(int)ThreadNumber];
+            var threadContainer = CpuCoreThreadContainers[(int)threadNumber];
             await SetThreadAffinity(NativeMethods.GetCurrentThread(),
                 threadContainer.CpuNumber,
                 threadContainer.CpuLogicalProcessorNumber,
                 threadContainer.LogicalProcessorsPerCpu);
-
-            threadContainer.ThreadStatus = ThreadStatus.Processing;
 
             if (Monitor.TryEnter(threadContainer.FuncLock))
             {
                 while (!threadContainer.TerminateSelf)
                 {
                     if (threadContainer.ThrottleTime > 0)
-                    {
-                        await AsyncWork(threadContainer.ThrottleTime);
-                    }
+                    { await AsyncWork(threadContainer.ThrottleTime); }
                     else if (threadContainer.AsyncFuncWork != default)
-                    {
-                        await threadContainer.AsyncFuncWork(ThreadNumber);
-                    }
+                    { await threadContainer.AsyncFuncWork(threadNumber); }
                 }
 
                 Monitor.Exit(threadContainer.FuncLock);
             }
         }
 
+        #region Helpers
+
         private async Task AsyncWork(int throttleTime)
         {
             await Task.Delay(throttleTime);
-        }       
+        }
+
+        #endregion
     }
 }

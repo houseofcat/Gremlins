@@ -49,11 +49,13 @@
     <Compile Include="Models\GlobalVariables.cs" />
     <Compile Include="Models\System\SystemVariables.cs" />
     <Compile Include="Models\System\ThreadContainer.cs" />
+    <Compile Include="Monitoring\TaskMonitoring.cs" />
+    <Compile Include="Monitoring\ThreadMonitoring.cs" />
     <Compile Include="Monitoring\SqlMonitoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sql\SqlConnectionGremlin.cs" />
     <Compile Include="System\CpuUsageGremlin.cs" />
-    <Compile Include="System\MemoryGremlin.cs" />
+    <Compile Include="System\MemoryUsageGremlin.cs" />
     <Compile Include="Utilities\ApplicationHelpers.cs" />
     <Compile Include="Utilities\Enums.cs" />
     <Compile Include="Utilities\HardwareHelpers.cs" />

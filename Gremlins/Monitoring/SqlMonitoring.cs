@@ -30,7 +30,7 @@ namespace Gremlins.Monitoring
             var perfCounterNames = Enum.GetNames(typeof(ANPC));
             AdoPerformanceCounters = new PerformanceCounter[perfCounterNames.Length];
 
-            for(int i = 0; i < perfCounterNames.Length; i++)
+            for (int i = 0; i < perfCounterNames.Length; i++)
             {
                 try
                 {

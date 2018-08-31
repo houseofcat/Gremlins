@@ -11,21 +11,21 @@ namespace Gremlins.Sql
     /// </summary>
     public class SqlConnectionGremlin
     {
-        #region Public Variables
-
-        /// <summary>
-        /// Connection storage during SqlConnectionGremlin usage.
-        /// </summary>
-        public ConcurrentDictionary<long, SqlConnection> Connections { get; set; } = new ConcurrentDictionary<long, SqlConnection>();
-
-        #endregion
-
         #region Private Variables
 
         private long _currentConnectionId = 0;
         private long _currentConnectionIdToRemove = 0;
 
         private readonly object _syncRoot = new object();
+
+        #endregion
+
+        #region Public Variables
+
+        /// <summary>
+        /// Connection storage during SqlConnectionGremlin usage.
+        /// </summary>
+        public ConcurrentDictionary<long, SqlConnection> Connections { get; set; } = new ConcurrentDictionary<long, SqlConnection>();
 
         #endregion
 
@@ -109,7 +109,7 @@ namespace Gremlins.Sql
         {
             var openCount = 0L;
 
-            foreach(var kvp in Connections)
+            foreach (var kvp in Connections)
             {
                 if (kvp.Value.State == ConnectionState.Open)
                 { openCount++; }
