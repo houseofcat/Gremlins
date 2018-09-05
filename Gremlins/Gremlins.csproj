@@ -59,6 +59,7 @@
     <Compile Include="Utilities\Helpers\ApplicationHelpers.cs" />
     <Compile Include="Utilities\Enums.cs" />
     <Compile Include="Utilities\Helpers\HardwareHelpers.cs" />
+    <Compile Include="Utilities\Implementations\GremlinTaskScheduler.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\Helpers\ThreadHelpers.cs" />
   </ItemGroup>

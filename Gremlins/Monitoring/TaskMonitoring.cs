@@ -8,6 +8,9 @@ namespace Gremlins.Monitoring
     /// </summary>
     public class TaskMonitoring
     {
+        public Task<int> GetActiveTaskCountAsync()
+        {
 
+        }
     }
 }
