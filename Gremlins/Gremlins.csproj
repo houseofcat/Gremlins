@@ -70,6 +70,7 @@
     <Compile Include="Gremlins\System\MemoryUsageGremlin.cs" />
     <Compile Include="Utilities\Helpers\ApplicationHelpers.cs" />
     <Compile Include="Utilities\Enums.cs" />
+    <Compile Include="Utilities\Helpers\ExceptionHelpers.cs" />
     <Compile Include="Utilities\Helpers\HardwareHelpers.cs" />
     <Compile Include="Utilities\Helpers\NetworkHelpers.cs" />
     <Compile Include="Utilities\Helpers\SqlHelpers.cs" />
