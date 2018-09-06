@@ -34,10 +34,19 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ben.Demystifier, Version=0.1.0.0, Culture=neutral, PublicKeyToken=a6d206e05440431a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ben.Demystifier.0.1.1\lib\net45\Ben.Demystifier.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Reflection.Metadata, Version=1.4.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.5.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,10 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gremlins\General\ExceptionGremlin.cs" />
     <Compile Include="Models\GlobalVariables.cs" />
+    <Compile Include="Models\System\Stacky.cs" />
     <Compile Include="Models\System\SystemVariables.cs" />
     <Compile Include="Models\System\ThreadContainer.cs" />
     <Compile Include="Monitoring\TaskMonitoring.cs" />
+    <Compile Include="Monitoring\TcpMonitoring.cs" />
     <Compile Include="Monitoring\ThreadMonitoring.cs" />
     <Compile Include="Monitoring\SqlMonitoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,12 +71,15 @@
     <Compile Include="Utilities\Helpers\ApplicationHelpers.cs" />
     <Compile Include="Utilities\Enums.cs" />
     <Compile Include="Utilities\Helpers\HardwareHelpers.cs" />
+    <Compile Include="Utilities\Helpers\NetworkHelpers.cs" />
+    <Compile Include="Utilities\Helpers\SqlHelpers.cs" />
+    <Compile Include="Utilities\Helpers\StackTraceHelpers.cs" />
     <Compile Include="Utilities\Implementations\GremlinTaskScheduler.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\Helpers\ThreadHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

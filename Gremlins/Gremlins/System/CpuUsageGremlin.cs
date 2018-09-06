@@ -139,7 +139,7 @@ namespace Gremlins.System
                         ThreadStatus = ThreadStatus.Idle,
                         Thread = new Thread(ThreadWorker)
                         {
-                            Name = $"ThreadGremlin #{currentCpu}-{currentCore}",
+                            Name = $"CpuUsageGremlin #{currentCpu}-{currentCore}",
                             Priority = threadPriority,
                             IsBackground = true
                         }

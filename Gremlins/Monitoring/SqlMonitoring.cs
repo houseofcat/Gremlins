@@ -226,8 +226,7 @@ namespace Gremlins.Monitoring
                     { item.Dispose(); }
 
                     // Recreates the objects original state.
-                    var perfCounterNames = Enum.GetNames(typeof(ANPC));
-                    AdoPerformanceCounters = new PerformanceCounter[perfCounterNames.Length];
+                    AdoPerformanceCounters = null;
                 }
 
                 disposedValue = true;
