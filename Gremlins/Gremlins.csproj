@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Gremlins\General\ExceptionGremlin.cs" />
     <Compile Include="Models\GlobalVariables.cs" />
+    <Compile Include="Models\System\ExceptionTarget.cs" />
     <Compile Include="Models\System\Stacky.cs" />
     <Compile Include="Models\System\SystemVariables.cs" />
     <Compile Include="Models\System\ThreadContainer.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Utilities\Helpers\SqlHelpers.cs" />
     <Compile Include="Utilities\Helpers\StackTraceHelpers.cs" />
     <Compile Include="Utilities\Implementations\GremlinTaskScheduler.cs" />
+    <Compile Include="Utilities\Implementations\ThreadSafeRandomNumberGenerator.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\Helpers\ThreadHelpers.cs" />
   </ItemGroup>
