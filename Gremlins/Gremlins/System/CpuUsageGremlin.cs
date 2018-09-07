@@ -124,10 +124,11 @@ namespace Gremlins.System
         public Task<ThreadContainer[]> CreateCpuCoreThreadContainersAsync(ThreadPriority threadPriority = ThreadPriority.Lowest)
         {
             var cpuCoreThreadContainers = new ThreadContainer[_cpuCount * Math.Max(_coresPerCpu, _logicalProcessorsPerCpu)];
+            var maximumThreadsPerCpu = Math.Max(_coresPerCpu, _logicalProcessorsPerCpu);
 
             for (int currentCpu = 0; currentCpu < _cpuCount; currentCpu++)
             {
-                for (int currentCore = 0; currentCore < Math.Max(_coresPerCpu, _logicalProcessorsPerCpu); currentCore++)
+                for (int currentCore = 0; currentCore < maximumThreadsPerCpu; currentCore++)
                 {
                     var threadContainer = new ThreadContainer
                     {
@@ -145,7 +146,7 @@ namespace Gremlins.System
                         }
                     };
 
-                    cpuCoreThreadContainers[currentCpu * _coresPerCpu + currentCore] = threadContainer;
+                    cpuCoreThreadContainers[currentCpu * maximumThreadsPerCpu + currentCore] = threadContainer;
                 }
             }
 
