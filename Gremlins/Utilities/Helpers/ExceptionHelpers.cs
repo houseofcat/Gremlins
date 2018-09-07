@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gremlins.Utilities.Implementations;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -12,13 +13,11 @@ namespace Gremlins.Utilities.Helpers
 {
     public static class ExceptionHelpers
     {
-        private static Random _random = new Random();
+        private static ThreadSafeRandomNumberGenerator _random = new ThreadSafeRandomNumberGenerator();
 
         public static Task ThrowsRandomSystemExceptionAsync()
         {
-            var exceptionChoice = _random.Next(0, 25);
-
-            switch (exceptionChoice)
+            switch (_random.Next(0, 25))
             {
                 case 0: throw new Exception();
                 case 1: throw new SystemException();
@@ -53,9 +52,7 @@ namespace Gremlins.Utilities.Helpers
 
         public static Task ThrowsRandomNetworkExceptionAsync()
         {
-            var exceptionChoice = _random.Next(0, 12);
-
-            switch (exceptionChoice)
+            switch (_random.Next(0, 12))
             {
                 case 0: throw new Exception();
                 case 1: throw new AccessViolationException();
@@ -73,12 +70,14 @@ namespace Gremlins.Utilities.Helpers
             return Task.CompletedTask;
         }
 
+        private static int _sqlErrorCount = -1;
+
         public static async Task ThrowsRandomSqlExceptionAsync()
         {
-            var exceptionChoice = _random.Next(0, 12);
-            var sqlExceptionNumber = _random.Next(0, SqlErrors.Count);
+            // Cache count locally to avoid counting.
+            if (_sqlErrorCount > 0) { _sqlErrorCount = SqlErrors.Count; }
 
-            switch (exceptionChoice)
+            switch (_random.Next(0, 9))
             {
                 case 0: throw new Exception();
                 case 1: throw new AccessViolationException();
@@ -89,7 +88,7 @@ namespace Gremlins.Utilities.Helpers
                 case 6: throw new TimeoutException();
                 case 7: throw new COMException();
                 case 8: await GenerateSqlExceptionAsync(49918); break;
-                case 9: await GenerateSqlExceptionAsync(sqlExceptionNumber); break;
+                case 9: await GenerateSqlExceptionAsync(_random.Next(0, _sqlErrorCount)); break;
                 default: break;
             }
         }
