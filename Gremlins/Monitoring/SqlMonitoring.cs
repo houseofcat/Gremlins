@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Helpers.ApplicationHelpers;
+using static HouseofCat.Library.Miscellaneous;
 using ANPC = Gremlins.Utilities.Enums.AdoNetPerformanceCounters;
 
 namespace Gremlins.Monitoring
@@ -222,7 +222,7 @@ namespace Gremlins.Monitoring
             {
                 if (disposing)
                 {
-                    foreach(var item in AdoPerformanceCounters)
+                    foreach (var item in AdoPerformanceCounters)
                     { item.Dispose(); }
 
                     // Recreates the objects original state.

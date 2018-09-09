@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Helpers.ApplicationHelpers;
+using static HouseofCat.Library.Miscellaneous;
 
 namespace Gremlins.Utilities.Helpers
 {
@@ -16,7 +16,7 @@ namespace Gremlins.Utilities.Helpers
 
             if (collection != null)
             {
-                var error = Construct<SqlError>(errorNumber, (byte)2, (byte)3, "server name", "Gremlins generated SqlException.", "proc", 100);
+                var error = Construct<SqlError>(errorNumber, 2, 3, "server name", "Gremlins generated SqlException.", "proc", 100);
 
                 if (error != null)
                 {

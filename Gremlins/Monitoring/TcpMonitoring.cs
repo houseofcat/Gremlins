@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Helpers.ApplicationHelpers;
+using static HouseofCat.Library.Miscellaneous;
 
 namespace Gremlins.Monitoring
 {
