@@ -1,4 +1,4 @@
-﻿using Gremlins.Models.System;
+﻿using HouseofCat.Gremlins.Models.System;
 using HouseofCat.Library;
 using HouseofCat.Models;
 using System;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static HouseofCat.Library.IO.Threading;
 using static HouseofCat.Models.Enums;
 
-namespace Gremlins.System
+namespace HouseofCat.Gremlins.System
 {
     /// <summary>
     /// This Gremlin is used to create heavy CPU usage. Useful for hardening applications that might suffer errors

@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static HouseofCat.Library.Miscellaneous;
-using ANPC = Gremlins.Utilities.Enums.AdoNetPerformanceCounters;
+using ANPC = HouseofCat.Gremlins.Utilities.Enums.AdoNetPerformanceCounters;
 
-namespace Gremlins.Monitoring
+namespace HouseofCat.Gremlins.Monitoring
 {
     /// <summary>
     /// Class the wraps around accessing PerformanceCounters for SqlConnection.

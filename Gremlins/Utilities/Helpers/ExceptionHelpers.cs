@@ -7,9 +7,9 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Helpers.SqlHelpers;
+using static HouseofCat.Gremlins.Utilities.Helpers.SqlHelpers;
 
-namespace Gremlins.Utilities.Helpers
+namespace HouseofCat.Gremlins.Utilities.Helpers
 {
     public static class ExceptionHelpers
     {

@@ -1,4 +1,4 @@
-﻿namespace Gremlins.Models.System
+﻿namespace HouseofCat.Gremlins.Models.System
 {
     public class ExceptionTarget
     {

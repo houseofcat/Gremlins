@@ -1,4 +1,4 @@
-﻿namespace Gremlins.Utilities
+﻿namespace HouseofCat.Gremlins.Utilities
 {
     /// <summary>
     /// Gremlins static Enumerations.

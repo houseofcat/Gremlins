@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static HouseofCat.Library.Miscellaneous;
 
-namespace Gremlins.Monitoring
+namespace HouseofCat.Gremlins.Monitoring
 {
     /// <summary>
     /// Class that helps monitor Tcp Socket usage.

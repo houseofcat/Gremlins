@@ -1,6 +1,6 @@
-﻿using static Gremlins.Utilities.Helpers.HardwareHelpers;
+﻿using static HouseofCat.Gremlins.Utilities.Helpers.HardwareHelpers;
 
-namespace Gremlins.Models.System
+namespace HouseofCat.Gremlins.Models.System
 {
     /// <summary>
     /// This class contains variables related to the System such as hardware info.

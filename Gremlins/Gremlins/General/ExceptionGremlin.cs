@@ -1,10 +1,10 @@
-﻿using Gremlins.Models.System;
+﻿using HouseofCat.Gremlins.Models.System;
 using HouseofCat.Models;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using static Gremlins.Utilities.Helpers.ExceptionHelpers;
+using static HouseofCat.Gremlins.Utilities.Helpers.ExceptionHelpers;
 
-namespace Gremlins.General
+namespace HouseofCat.Gremlins.General
 {
     public static class ExceptionGremlin
     {

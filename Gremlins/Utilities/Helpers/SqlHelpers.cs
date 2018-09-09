@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using static HouseofCat.Library.Miscellaneous;
 
-namespace Gremlins.Utilities.Helpers
+namespace HouseofCat.Gremlins.Utilities.Helpers
 {
     public static class SqlHelpers
     {

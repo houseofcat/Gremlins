@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gremlins.Sql
+namespace HouseofCat.Gremlins.Sql
 {
     /// <summary>
     /// This Gremlin is used to create SqlConnectionPool contention issues. Useful for hardening applications that form SqlConnections.

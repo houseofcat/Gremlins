@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gremlins.Monitoring
+namespace HouseofCat.Gremlins.Monitoring
 {
     /// <summary>
     /// Class that helps monitor Thread usage.

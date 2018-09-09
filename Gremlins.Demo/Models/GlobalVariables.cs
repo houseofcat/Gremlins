@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Gremlins.Demo.Models
+namespace HouseofCat.Gremlins.Demo.Models
 {
     public static class GlobalVariables
     {

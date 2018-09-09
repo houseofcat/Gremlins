@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using static Gremlins.Demo.Examples.CpuGremlinExamples;
-using static Gremlins.Demo.Examples.SqlMonitoringExamples;
-using static Gremlins.Demo.Examples.SqlConnectionGremlinExamples;
+using static HouseofCat.Gremlins.Demo.Examples.CpuGremlinExamples;
+using static HouseofCat.Gremlins.Demo.Examples.SqlMonitoringExamples;
+using static HouseofCat.Gremlins.Demo.Examples.SqlConnectionGremlinExamples;
 using System;
 
-namespace Gremlins.Demo
+namespace HouseofCat.Gremlins.Demo
 {
     public class Program
     {

@@ -1,9 +1,9 @@
-﻿using Gremlins.System;
+﻿using HouseofCat.Gremlins.System;
 using System;
 using System.Threading.Tasks;
-using static Gremlins.Monitoring.ThreadMonitoring;
+using static HouseofCat.Gremlins.Monitoring.ThreadMonitoring;
 
-namespace Gremlins.Demo.Examples
+namespace HouseofCat.Gremlins.Demo.Examples
 {
     public static class CpuGremlinExamples
     {

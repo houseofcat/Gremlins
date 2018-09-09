@@ -1,9 +1,9 @@
-﻿using Gremlins.Monitoring;
+﻿using HouseofCat.Gremlins.Monitoring;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using static Gremlins.Demo.Models.GlobalVariables;
+using static HouseofCat.Gremlins.Demo.Models.GlobalVariables;
 
-namespace Gremlins.Demo.Examples
+namespace HouseofCat.Gremlins.Demo.Examples
 {
     public static class SqlMonitoringExamples
     {

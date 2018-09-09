@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace Gremlins.System
+namespace HouseofCat.Gremlins.System
 {
     /// <summary>
     /// This Gremlin is used to create heavy RAM usage. Useful for hardening applications that might suffer errors
