@@ -21,7 +21,7 @@ Gremlins can simulate CLR/Managed memory usage. Can be used to simulate high mem
 Gremlins can starve CPU usage and specify the thread priority. Can be used to simulate load on the system or appdomain.  
 
 #### SQL  
-Gremlins can starve the SqlConnection pool keeping some connections open internally. Can be used to simulate load on the ConnectionPool and well your application performs when connections are full.  
+Gremlins can starve the SqlConnection pool keeping the connections open internally until released. Can be used to simulate load on the ConnectionPool and how well your application performs when the connectionpool is low on connections.  
 
 #### Monitoring  
 Thread monitoring - a variety of ways to to see the number of threads actively engaged in work.  
