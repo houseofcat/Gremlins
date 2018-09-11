@@ -46,13 +46,24 @@ namespace HouseofCat.Gremlins.General
         private static readonly ConcurrentDictionary<long, ExceptionTarget> _longExceptionCache = new ConcurrentDictionary<long, ExceptionTarget>();
         private static readonly ConcurrentDictionary<string, ExceptionTarget> _stringExceptionCache = new ConcurrentDictionary<string, ExceptionTarget>();
 
-        public static async Task RollsTheDice(object input, ExceptionTarget target = null)
+        public static async Task RollsTheDiceAsync(object input, ExceptionTarget target = null)
         {
             switch (input)
             {
                 case int userInput: await HandleIntAsync(userInput, target); break;
                 case long userInput: await HandleLongAsync(userInput, target); break;
                 case string userInput: await HandleStringAsync(userInput, target); break;
+                default: break;
+            }
+        }
+
+        public static async Task RemoveTargetAsync(object input)
+        {
+            switch (input)
+            {
+                case int userInput: await RemoveIntAsync(userInput); break;
+                case long userInput: await RemoveLongAsync(userInput); break;
+                case string userInput: await RemoveStringAsync(userInput); break;
                 default: break;
             }
         }
@@ -166,6 +177,27 @@ namespace HouseofCat.Gremlins.General
             }
             else if (allowContextualCleanup) // We are finished with this input! Allows it come back in!
             { _stringExceptionCache.TryRemove(input, out ExceptionTarget outTarget); }
+        }
+
+        private static Task RemoveIntAsync(int input)
+        {
+            _intExceptionCache.TryRemove(input, out ExceptionTarget value);
+
+            return Task.CompletedTask;
+        }
+
+        private static Task RemoveLongAsync(long input)
+        {
+            _longExceptionCache.TryRemove(input, out ExceptionTarget value);
+
+            return Task.CompletedTask;
+        }
+
+        private static Task RemoveStringAsync(string input)
+        {
+            _stringExceptionCache.TryRemove(input, out ExceptionTarget value);
+
+            return Task.CompletedTask;
         }
 
         private static Task<ExceptionTarget> GetOrAddIntCachedExecptionTargetAsync(int input, ExceptionTarget target = null)
