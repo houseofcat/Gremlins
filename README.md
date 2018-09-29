@@ -3,8 +3,8 @@
 ### Gremlins In The Code  
 
 Reusable functions that help harden C#/NET systems by purposefully adding stress and errors in a variety of ways.  
-Go easy on me, it is a work in progress, with no structure.  
-New feature requests go into Issues!  
+Go easy on me, it is a work in progress, with no structure/release plan.  
+New needed features -> open a feature Issue!  
 
 ### Features  
 Supports NET472.  
