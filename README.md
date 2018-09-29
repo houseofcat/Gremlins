@@ -2,8 +2,9 @@
 
 ### Gremlins In The Code  
 
-Reusable functions that help harden C#/NET systems by purposefully adding stress and errors in a variety of ways.
-Work in progress.  
+Reusable functions that help harden C#/NET systems by purposefully adding stress and errors in a variety of ways.  
+Go easy on me, it is a work in progress, with no structure.  
+New feature requests go into Issues!  
 
 ### Features  
 Supports NET472.  
