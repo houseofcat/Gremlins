@@ -1,11 +1,11 @@
 ﻿using HouseofCat.Gremlins.Models.System;
 using HouseofCat.Library;
+using HouseofCat.Library.Threading;
 using HouseofCat.Models;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static HouseofCat.Library.IO.Threading;
 using static HouseofCat.Models.Enums;
 
 namespace HouseofCat.Gremlins.System
@@ -162,7 +162,7 @@ namespace HouseofCat.Gremlins.System
         private async void ThreadWorker(object threadNumber)
         {
             var threadContainer = CpuCoreThreadContainers[(int)threadNumber];
-            await SetThreadAffinity(NativeMethods.GetCurrentThread(),
+            await Threading.SetThreadAffinity(NativeMethods.GetCurrentThread(),
                 threadContainer.CpuNumber,
                 threadContainer.CpuLogicalProcessorNumber,
                 threadContainer.LogicalProcessorsPerCpu);
