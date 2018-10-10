@@ -1,7 +1,7 @@
-﻿using HouseofCat.Gremlins.System;
+﻿using HouseofCat.Library.Gremlins;
 using System;
 using System.Threading.Tasks;
-using static HouseofCat.Gremlins.Monitoring.ThreadMonitoring;
+using static HouseofCat.Library.Monitoring.ThreadInfo;
 
 namespace HouseofCat.Gremlins.Demo.Examples
 {

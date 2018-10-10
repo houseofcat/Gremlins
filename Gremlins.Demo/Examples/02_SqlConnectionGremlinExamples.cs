@@ -1,5 +1,5 @@
-﻿using HouseofCat.Gremlins.Monitoring;
-using HouseofCat.Gremlins.Sql;
+﻿using HouseofCat.Library.Gremlins;
+using HouseofCat.Library.Monitoring;
 using System;
 using System.Threading.Tasks;
 using static HouseofCat.Gremlins.Demo.Models.GlobalVariables;
