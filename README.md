@@ -1,8 +1,7 @@
 # Gremlins  
 
-# Consolidated with my other library!
-https://github.com/houseofcat/Libraries
-
+# Gremlins Library has been moved and consolidated with my other library located here:
+https://github.com/houseofcat/Library
 ### Gremlins In The Code  
 
 Reusable functions that help harden C#/NET systems by purposefully adding stress and errors in a variety of ways.  
